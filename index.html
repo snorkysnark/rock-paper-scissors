@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rock Paper Scissors</title>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <script>
+        const shapes = {
+            ROCK: 0,
+            PAPER: 1,
+            SCISSORS: 2,
+            getName : function(id) {
+                switch(id) {
+                        case this.ROCK: return 'Rock';
+                        case this.PAPER: return 'Paper';
+                        case this.SCISSORS: return 'Scissors';
+                    }
+            },
+            fromName : function(name) {
+                switch(name.toLowerCase()) {
+                    case 'rock': return this.ROCK;
+                    case 'paper': return this.PAPER;
+                    case 'scissors': return this.SCISSORS;
+                }
+            }
+        }
+        Object.freeze(shapes);
+
+        function game() {
+            for (let i = 0; i < 5; i++) {
+                let playerSelection = playerInput();
+                alert(playRound(playerSelection, computerPlay()));
+            }
+        }
+
+        function playerInput() {
+            let playerString;
+            let playerSelection;
+
+            while(!playerString || playerSelection === undefined) {
+                playerString = prompt('Choose rock, paper or scissors');
+                if(playerString) playerSelection = shapes.fromName(playerString);
+            }
+            return playerSelection;
+        }
+        
+        function playRound(playerSelection, computerSelection) {
+            if(playerSelection === computerSelection) {
+                return `Draw! Both selected ${shapes.getName(playerSelection)}.`;
+            }
+            if(checkIfFirstWins(playerSelection, computerSelection)) {
+                return 'You win! ' + beatsMessage(playerSelection, computerSelection);
+            } else {
+                return 'You lose! ' + beatsMessage(computerSelection, playerSelection);
+            }
+        }
+
+        function beatsMessage(first, second) {
+            return `${shapes.getName(first)} beats ${shapes.getName(second)}!`
+        }
+
+        function checkIfFirstWins(first, second) {
+            if(first === shapes.ROCK && second === shapes.SCISSORS) {
+                return true;
+            }
+            return first > second;
+        }
+        
+        function computerPlay() {
+            return random(3);
+        }
+
+        function random(int) {
+            return Math.floor(Math.random() * int);
+        }
+
+        game();
+    </script>
+</body>
+</html>
