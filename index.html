@@ -9,23 +9,19 @@
         const shapes = {
             ROCK: 0,
             PAPER: 1,
-            SCISSORS: 2,
-            getName : function(id) {
-                switch(id) {
-                        case this.ROCK: return 'Rock';
-                        case this.PAPER: return 'Paper';
-                        case this.SCISSORS: return 'Scissors';
-                    }
-            },
-            fromName : function(name) {
-                switch(name.toLowerCase()) {
-                    case 'rock': return this.ROCK;
-                    case 'paper': return this.PAPER;
-                    case 'scissors': return this.SCISSORS;
-                }
-            }
+            SCISSORS: 2
         }
         Object.freeze(shapes);
+
+        const shapeNames = {
+            0: "rock",
+            1: "paper",
+            2: "scissors",
+            "rock": 0,
+            "paper": 1,
+            "scissors": 2
+        }
+        Object.freeze(shapeNames);
 
         function game() {
             for (let i = 0; i < 5; i++) {
@@ -40,14 +36,14 @@
 
             while(!playerString || playerSelection === undefined) {
                 playerString = prompt('Choose rock, paper or scissors');
-                if(playerString) playerSelection = shapes.fromName(playerString);
+                if(playerString) playerSelection = shapeNames[playerString.toLowerCase()];
             }
             return playerSelection;
         }
         
         function playRound(playerSelection, computerSelection) {
             if(playerSelection === computerSelection) {
-                return `Draw! Both selected ${shapes.getName(playerSelection)}.`;
+                return `Draw! Both selected ${getNameCapitalized(playerSelection)}.`;
             }
             if(checkIfFirstWins(playerSelection, computerSelection)) {
                 return 'You win! ' + beatsMessage(playerSelection, computerSelection);
@@ -57,7 +53,7 @@
         }
 
         function beatsMessage(first, second) {
-            return `${shapes.getName(first)} beats ${shapes.getName(second)}!`
+            return `${getNameCapitalized(first)} beats ${getNameCapitalized(second)}!`
         }
 
         function checkIfFirstWins(first, second) {
@@ -75,6 +71,10 @@
             return Math.floor(Math.random() * int);
         }
 
+        function getNameCapitalized(id) {
+            let name = shapeNames[id];
+            return name[0].toUpperCase() + name.slice(1);
+        }
         game();
     </script>
 </body>
