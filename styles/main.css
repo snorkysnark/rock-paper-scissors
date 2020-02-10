@@ -1,0 +1,154 @@
+body {
+    background-color: #d65549;
+}
+
+:root {
+    --box-color: #973535;
+    --box-inner-color: #c32359;
+    --box-inner-shadow: #731132;
+    --box-width: 400px;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 1333px) {
+    :root {
+        --box-width: 30vw;
+    }
+}
+
+.choice-box {
+    width: var(--box-width);
+    height: var(--box-width);
+    background-color: var(--box-color);
+    border-radius: 25px;
+    position: absolute;
+    top: 50vh;
+    transform: translate(0, -50%);
+    z-index: 2;
+    animation: appear 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0%;
+    }
+    100%: {
+        opacity: 100%;
+    }
+}
+
+#player-box {
+    left: 10vw;
+}
+
+#computer-box {
+    right: 10vw;
+}
+
+.shape-button {
+    border-radius: 50%;
+    border:none;
+    outline: none;
+    background-color: var(--box-color);
+    background-repeat: no-repeat;
+    background-position: center;
+    width: calc(var(--box-width) / 4);
+    height: calc(var(--box-width) / 4);
+    background-size: calc(var(--box-width) / 5) auto;
+    margin: calc(var(--box-width) / 80);
+    box-shadow: inset calc(var(--shadow-size) * -1) calc(var(--shadow-size) * -1) var(--box-inner-shadow);
+    cursor: pointer;
+}
+
+.shape-button[data-shape="0"] {
+    background-image: url("../images/rock.svg");
+}
+
+.shape-button[data-shape="1"] {
+    background-image: url("../images/paper.svg");
+}
+
+.shape-button[data-shape="2"] {
+    background-image: url("../images/scissors.svg");
+}
+
+#buttons-block {
+    --shadow-size: calc(var(--box-width) / 80);
+    background-color: var(--box-inner-color);
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: inset var(--shadow-size) var(--shadow-size) var(--box-inner-shadow);
+}
+
+#computer-icon {
+    -webkit-user-select: none;      
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--box-inner-shadow);
+    font-size: calc(var(--box-width) / 2);
+}
+
+.battle-shape {
+    position: absolute;
+    top: calc(50% + var(--box-width) / 2);
+    transform: translate(-50%, -100%);
+}
+
+#player-shape {
+    left: calc(10vw + var(--box-width) / 2);
+}
+
+#computer-shape {
+    left: calc(90vw - var(--box-width) / 2);
+}
+
+#player-shape.attacking {
+    animation: attack 1s ease-in;
+    animation-fill-mode: forwards;
+}
+
+#computer-shape.attacking {
+    animation: attack 1s ease-out;
+    animation-fill-mode: forwards;
+    animation-direction: alternate-reverse;
+}
+
+@keyframes attack {
+    0% {
+        left: calc(10vw + var(--box-width) / 2);
+    }
+    100% {
+        left: calc(90vw - var(--box-width) / 2);
+    }
+}
+
+.box-up {
+    animation: boxup 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes boxup {
+    0% {
+        top: 50vh;
+        opacity: 100%;
+    }
+    100% {
+        top: calc(var(--box-width) * -1);
+        opacity: 0%;
+    }
+}

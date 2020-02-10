@@ -3,8 +3,21 @@
 <head>
     <title>Rock Paper Scissors</title>
     <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
 </head>
 <body>
+    <img id="player-shape" class="battle-shape" src="images/rock.svg">
+    <img id="computer-shape" class="battle-shape" src="images/scissors.svg">
+    <div id="player-box" class = "choice-box">
+        <div id="buttons-block">
+            <button class="shape-button" data-shape="0"></button>
+            <button class="shape-button" data-shape="1"></button>
+            <button class="shape-button" data-shape="2"></button>
+        </div>
+    </div>
+    <div id="computer-box" class = "choice-box">
+        <span id="computer-icon">?</span>
+    </div>
     <script src="game.js"></script>
 </body>
 </html>
